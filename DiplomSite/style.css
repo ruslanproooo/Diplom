@@ -1,0 +1,97 @@
+body {
+    background-color: #2C2C2C;
+    margin: auto;
+}
+.nav {
+    background-color: #D9D9D9;
+    width: 100%;
+    height: 80px;
+    opacity: 30%;
+}
+#logo {
+    width: 20%;
+    font-size: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 20px;
+    padding-left: 10%;
+    float: left;
+}
+#nav1 {
+    font-size: 30px;
+    width: 40%;
+    padding-top: 20px;
+    word-spacing: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    text-align: center;
+    float: left;
+}
+a {
+    text-decoration: none;
+    color: #000000;
+    
+}
+#butt {
+    width: 97%;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    word-spacing: 2px;
+    padding-top: 25px;
+}
+.button1 {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 20px;
+    border-radius: 40px;
+}
+.namekat {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    padding-top: 20px;
+}
+.katalog {
+    width: 100%;
+    padding-top: 20px;
+    color: #FFFFFF;
+}
+#game1 {
+    width: 80%;
+    height: 150px;
+    margin: auto;
+    padding-top: 1%;
+}
+#img1 {
+    width: 30%;
+    height: 150px;
+    background: #ffffff;
+    float: left;
+    border-radius: 2%;
+}
+#infg {
+    float: left;
+    width: 70%;
+    margin-top: 1%;
+}
+#gamename {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 2%;
+}
+#gameinfo {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 2%;
+    font-size: 23px;
+    margin-top: 1%;
+}
+.footer {
+    background-color: #000000;
+    width: 100%;
+    height: 200px;
+    margin-top: 5%;
+}
