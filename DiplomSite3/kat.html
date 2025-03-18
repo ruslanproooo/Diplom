@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameUP - Каталог игр</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #1a1a1a; /* Темный фон */
+            color: #ffffff; /* Белый текст */
+        }
+        header {
+            background-color: #0d0d0d; /* Темный фон для шапки */
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6f61; /* Яркий акцентный цвет */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        header .nav-center {
+            display: flex;
+            gap: 20px;
+        }
+        header .nav-right {
+            display: flex;
+            gap: 10px;
+        }
+        header nav a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #333, #555); /* Темный градиент */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header nav a:hover {
+            background: linear-gradient(45deg, #555, #777); /* Светлее при наведении */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        header .nav-right a {
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f); /* Яркий градиент */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header .nav-right a:hover {
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61); /* Ярче при наведении */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #262626; /* Темный фон для контейнера */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            width: 100%;
+            border-radius: 8px;
+        }
+        .game {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444; /* Темная граница */
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .game:last-child {
+            border-bottom: none;
+        }
+        .game img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .game h2 {
+            margin-top: 0;
+            color: #ff6f61; /* Яркий акцентный цвет для заголовков */
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0d0d0d; /* Темный фон для футера */
+            color: white;
+            flex-shrink: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        footer .footer-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        footer .column {
+            flex: 1;
+            margin: 0 10px;
+        }
+        footer .column h3 {
+            margin-top: 0;
+            color: #ff6f61; /* Яркий акцентный цвет для заголовков */
+        }
+        footer .social-links a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            margin: 5px 0;
+            transition: color 0.3s ease;
+        }
+        footer .social-links a:hover {
+            color: #ff6f61; /* Яркий акцентный цвет при наведении */
+        }
+        footer .footer-line {
+            width: 100%;
+            border-top: 1px solid #444; /* Темная граница */
+            margin: 20px 0;
+        }
+        footer .copyright {
+            text-align: center;
+            width: 100%;
+            color: #888; /* Серый цвет для копирайта */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">GameUP</div>
+        <div class="nav-center">
+            <a href="#">Новости</a>
+            <a href="kat.html">Каталог игр</a>
+        </div>
+        <div class="nav-right">
+            <a href="Avtor.html">Вход</a>
+            <a href="Reg2.html">Регистрация</a>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Каталог</h1>
+        <a href="counter-strike.html" class="game">
+            <img src="https://steamuserimages-a.akamaihd.net/ugc/2495647088251644653/467576309F70F694F9EB45999B1C657FC229EDAC/?imw=512&amp;imh=288&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true" alt="Counter-Strike 2">
+            <div>
+                <h2>Counter-Strike 2</h2>
+                <p>Командный онлайн-шутер от первого лица, где две команды террористы и контр-террористы сражаются друг с другом.</p>
+            </div>
+        </a>
+        <a href="dota2.html" class="game">
+            <img src="https://i.pinimg.com/736x/e6/99/fb/e699fb7cd6ce72d00445fac66fdfc997.jpg" alt="Dota 2">
+            <div>
+                <h2>Dota 2</h2>
+                <p>Многопользовательская онлайн-игра в жанре МОВА, она представляет собой командное сражение, в котором две команды по пять игроков сражаются друг с другом с целью уничтожить трон противника, находящийся в его базе.</p>
+            </div>
+        </a>
+        <a href="pubg.html" class="game">
+            <img src="https://avatars.mds.yandex.net/i?id=ced586e703b694df233c06386b1bb483_l-4149382-images-thumbs&n=13" alt="PUBG">
+            <div>
+                <h2>PUBG</h2>
+                <p>Многопользовательская игра в жанре Королевской битвы, где игроки сражаются на огромной карте, которая сужается со временем.</p>
+            </div>
+        </a>
+        <a href="valorant.html" class="game">
+            <img src="https://images.genius.com/b878091d0bc5e60ff70fa65606aa2649.900x900x1.png" alt="Valorant">
+            <div>
+                <h2>Valorant</h2>
+                <p>Тактический шутер от первого лица, который сочетает в себе элементы классических шутеров и уникальные способности персонажей (агентов).</p>
+            </div>
+        </a>
+        <a href="world-of-tanks.html" class="game">
+            <img src="https://irecommend.ru/sites/default/files/imagecache/copyright1/user-images/2688544/UK7aIInfG3pPuGgyotKjnQ.jpg" alt="World of Tanks">
+            <div>
+                <h2>World of Tanks</h2>
+                <p>Многопользовательская онлайн-игра, которая предлагает игрокам возможность погрузиться в мир бронетанковых сражений, сочетая стратегию, командную работу и историческую тематику.</p>
+            </div>
+        </a>
+        <a href="fortnite.html" class="game">
+            <img src="https://m.media-amazon.com/images/S/abs-image-upload-na/3/AmazonStores/ATVPDKIKX0DER/34080a6b9a8d1aa8781d6d452215672c.w900.h900._CR0%2C0%2C900%2C900_SX900_.jpg" alt="Fortnite">
+            <div>
+                <h2>Fortnite</h2>
+                <p>Многопользовательская онлайн-игра, где игроки сражаются друг с другом на острове, стремясь стать последним выжившим.</p>
+            </div>
+        </a>
+        <a href="rust.html" class="game">
+            <img src="https://steamuserimages-a.akamaihd.net/ugc/2008093109832713720/A28AFABE9A97A7D3F9A64C3327650BEE1F8FCBB0/?imw=512&amp;imh=512&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true" alt="Rust">
+            <div>
+                <h2>Rust</h2>
+                <p>Многопользовательская survival-игра, где игроки развиваются в открытом мире, исследуют различные биомы и сталкиваются с другими игроками.</p>
+            </div>
+        </a>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="column">
+                <h3>Отзывы о сайте</h3>
+                <p>Обзор</p>
+                <p>Обновления</p>
+            </div>
+            <div class="column">
+                <h3>Наши социальные сети:</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-line"></div>
+        <div class="copyright">
+            <p>GameUP, 2021</p>
+        </div>
+    </footer>
+</body>
+</html>

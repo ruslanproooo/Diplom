@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameUP - Регистрация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #1a1a1a; /* Темный фон */
+            color: #ffffff; /* Белый текст */
+        }
+        header {
+            background-color: #0d0d0d; /* Темный фон для шапки */
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6f61; /* Яркий акцентный цвет */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        header .nav-center {
+            display: flex;
+            gap: 20px;
+        }
+        header .nav-right {
+            display: flex;
+            gap: 10px;
+        }
+        header nav a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #333, #555); /* Темный градиент */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header nav a:hover {
+            background: linear-gradient(45deg, #555, #777); /* Светлее при наведении */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        header .nav-right a {
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f); /* Яркий градиент */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header .nav-right a:hover {
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61); /* Ярче при наведении */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #262626; /* Темный фон для контейнера */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .auth-container h2 {
+            margin-bottom: 20px;
+            color: #ff6f61; /* Яркий акцентный цвет для заголовков */
+        }
+        .auth-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #444; /* Темная граница */
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #333; /* Темный фон для полей ввода */
+            color: #ffffff; /* Белый текст */
+        }
+        .auth-container input::placeholder {
+            color: #888; /* Серый цвет для плейсхолдера */
+        }
+        .auth-container button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f); /* Яркий градиент */
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .auth-container button:hover {
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61); /* Ярче при наведении */
+        }
+        .auth-container a {
+            display: block;
+            margin-top: 10px;
+            color: #ff6f61; /* Яркий акцентный цвет */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .auth-container a:hover {
+            color: #ff3b2f; /* Ярче при наведении */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">GameUP</div>
+        <div class="nav-center">
+            <a href="#">Новости</a>
+            <a href="kat.html">Каталог игр</a>
+        </div>
+        <div class="nav-right">
+            <a href="Avtor.html">Вход</a>
+            <a href="Reg2.html">Регистрация</a>
+        </div>
+    </header>
+    <div class="auth-container">
+        <h2>Регистрация</h2>
+        <input type="text" placeholder="Имя пользователя" required>
+        <input type="email" placeholder="Почта" required>
+        <input type="password" placeholder="Пароль" required>
+        <input type="password" placeholder="Подтверждение пароля" required>
+        <button type="submit">Зарегистрироваться</button>
+        <a href="Avtor.html">Войти</a>
+    </div>
+</body>
+</html>
