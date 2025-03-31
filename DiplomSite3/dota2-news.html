@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameUP - Новости Dota 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        header {
+            background-color: #0d0d0d;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6f61;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        header .nav-center {
+            display: flex;
+            gap: 20px;
+        }
+        header .nav-right {
+            display: flex;
+            gap: 10px;
+        }
+        header nav a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #333, #555);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header nav a:hover {
+            background: linear-gradient(45deg, #555, #777);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        header .nav-right a {
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header .nav-right a:hover {
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #262626;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            width: 100%;
+            border-radius: 8px;
+        }
+        .news-article {
+            margin-bottom: 40px;
+        }
+        .news-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .news-header h1 {
+            color: #ff6f61;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .news-meta {
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .news-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .news-content {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .news-content p {
+            margin-bottom: 20px;
+        }
+        .news-content h2, .news-content h3 {
+            color: #ff6f61;
+            margin: 30px 0 15px;
+        }
+        .news-content ul, .news-content ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+        .news-content li {
+            margin-bottom: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover {
+            color: #ff3b2f;
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0d0d0d;
+            color: white;
+            flex-shrink: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        footer .footer-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        footer .column {
+            flex: 1;
+            margin: 0 10px;
+        }
+        footer .column h3 {
+            margin-top: 0;
+            color: #ff6f61;
+        }
+        footer .social-links a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            margin: 5px 0;
+            transition: color 0.3s ease;
+        }
+        footer .social-links a:hover {
+            color: #ff6f61;
+        }
+        footer .footer-line {
+            width: 100%;
+            border-top: 1px solid #444;
+            margin: 20px 0;
+        }
+        footer .copyright {
+            text-align: center;
+            width: 100%;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">GameUP</div>
+        <div class="nav-center">
+            <a href="#">Новости</a>
+            <a href="kat.html">Каталог игр</a>
+        </div>
+        <div class="nav-right">
+            <a href="Avtor.html">Вход</a>
+            <a href="Reg2.html">Регистрация</a>
+        </div>
+    </header>
+    <div class="container">
+        <article class="news-article">
+            <div class="news-header">
+                <h1>The International 2024: Даты и место проведения</h1>
+                <div class="news-meta">
+                    <span>10 марта 2024</span> | 
+                    <span>Автор: Анна Смирнова</span> | 
+                    <span>Категория: Dota 2</span>
+                </div>
+                <img src="https://avatars.mds.yandex.net/i?id=dc3a5392145a6b1ca261c7dd273750b8_l-5427846-images-thumbs&n=13" alt="The International 2024" class="news-image">
+            </div>
+            
+            <div class="news-content">
+                <p>Организаторы официально объявили даты и место проведения главного турнира года по Dota 2 - The International 2024. В этом году событие пройдет в Сингапуре с 15 по 27 октября.</p>
+                
+                <h2>Основная информация</h2>
+                <ul>
+                    <li><strong>Даты проведения:</strong> 15-27 октября 2024 года</li>
+                    <li><strong>Место проведения:</strong> Singapore Indoor Stadium, Сингапур</li>
+                    <li><strong>Призовой фонд:</strong> Начинается с $1,6 млн (будет увеличиваться за счет продаж Battle Pass)</li>
+                    <li><strong>Количество команд:</strong> 16 (12 по приглашению, 4 через региональные квалификации)</li>
+                </ul>
+                
+                <h2>Формат турнира</h2>
+                <p>The International 2024 сохранит проверенный формат:</p>
+                <ol>
+                    <li><strong>Групповой этап</strong> (15-18 октября) - две группы по 8 команд, играют по круговой системе</li>
+                    <li><strong>Основной этап</strong> (20-27 октября) - Double Elimination сетка (верхняя и нижняя сетки)</li>
+                    <li><strong>Гранд-финал</strong> (27 октября) - лучшие команды сразятся за чемпионский титул</li>
+                </ol>
+                
+                <h2>Изменения в этом году</h2>
+                <p>По сравнению с предыдущими годами организаторы внесли несколько изменений:</p>
+                <ul>
+                    <li>Новая система квалификаций с увеличенным количеством слотов для регионов</li>
+                    <li>Обновленный формат Battle Pass с большим количеством контента</li>
+                    <li>Улучшенная трансляция с поддержкой VR и новых камерных ракурсов</li>
+                    <li>Расширенная программа для зрителей на месте с мастер-классами от профессионалов</li>
+                </ul>
+                
+                <h2>Как попасть на турнир</h2>
+                <p>Билеты поступят в продажу 1 июня 2024 года в три этапа:</p>
+                <ul>
+                    <li><strong>Final Phase:</strong> 1-3 июня (доступны все дни турнира)</li>
+                    <li><strong>Playoffs Phase:</strong> 15-20 июня (только дни плей-офф)</li>
+                    <li><strong>Finals Phase:</strong> 1-5 июля (только финальные дни)</li>
+                </ul>
+                <p>Цены варьируются от $99 за дневной билет до $999 за VIP-пакет.</p>
+                
+                <h2>Российские команды</h2>
+                <p>В этом году ожидается участие нескольких сильных российских коллективов:</p>
+                <ul>
+                    <li>Team Spirit - действующие чемпионы The International 2023</li>
+                    <li>BetBoom Team - победители нескольких крупных турниров в этом сезоне</li>
+                    <li>Virtus.pro - стабильно сильная команда с хорошими шансами</li>
+                </ul>
+                
+                <a href="index.html" class="back-link">← Вернуться к списку новостей</a>
+            </div>
+        </article>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="column">
+                <h3>Отзывы о сайте</h3>
+                <p>Обзор</p>
+                <p>Обновления</p>
+            </div>
+            <div class="column">
+                <h3>Наши социальные сети:</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-line"></div>
+        <div class="copyright">
+            <p>GameUP, 2024</p>
+        </div>
+    </footer>
+</body>
+</html>
