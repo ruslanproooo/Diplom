@@ -16,7 +16,7 @@
             color: #ffffff;
         }
         header {
-            background-color: #0d0d0d;
+            background-color: #0d0d0d; /* Темный фон для шапки */
             color: white;
             padding: 10px 20px;
             display: flex;
@@ -28,16 +28,28 @@
         header .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #ff6f61;
+            color: #ff6f61; /* Яркий акцентный цвет */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        header .logo a {
+            text-decoration: none;
+            color: #ff6f61;
         }
         header .nav-center {
             display: flex;
             gap: 20px;
         }
+        header .nav-center  a {
+            text-decoration: none;
+            color: #ffffff;
+        }
         header .nav-right {
             display: flex;
             gap: 10px;
+        }
+        header .nav-right a {
+            text-decoration: none;
+            color: #000000;
         }
         header nav a {
             text-decoration: none;
@@ -45,11 +57,11 @@
             padding: 8px 16px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            background: linear-gradient(45deg, #333, #555);
+            background: linear-gradient(45deg, #333, #555); /* Темный градиент */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         header nav a:hover {
-            background: linear-gradient(45deg, #555, #777);
+            background: linear-gradient(45deg, #555, #777); /* Светлее при наведении */
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
@@ -57,11 +69,11 @@
             padding: 8px 16px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            background: linear-gradient(45deg, #ff6f61, #ff3b2f);
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f); /* Яркий градиент */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         header .nav-right a:hover {
-            background: linear-gradient(45deg, #ff3b2f, #ff6f61);
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61); /* Ярче при наведении */
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
@@ -179,7 +191,7 @@
 </head>
 <body>
     <header>
-        <div class="logo">GameUP</div>
+        <div class="logo"><a href="index.html">GameUP</a></div>
         <div class="nav-center">
             <a href="#">Новости</a>
             <a href="kat.html">Каталог игр</a>
