@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameUP - Новости CS2</title>
+    <title>GameUP - Новости Rust</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -124,107 +124,47 @@
             width: 100%;
             border-radius: 8px;
         }
-        .game-review {
+        .news-article {
             margin-bottom: 40px;
         }
-        .review-header {
+        .news-header {
             margin-bottom: 30px;
             text-align: center;
         }
-        .review-header h1 {
+        .news-header h1 {
             color: #ff6f61;
             font-size: 32px;
             margin-bottom: 10px;
         }
-        .game-meta {
+        .news-meta {
             color: #888;
             font-size: 16px;
             margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
         }
-        .game-cover {
+        .news-image {
             width: 100%;
             max-height: 500px;
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 25px;
         }
-        .review-content {
+        .news-content {
             line-height: 1.6;
             font-size: 16px;
         }
-        .review-content p {
+        .news-content p {
             margin-bottom: 20px;
         }
-        .review-content h2 {
+        .news-content h2, .news-content h3 {
             color: #ff6f61;
             margin: 30px 0 15px;
-            border-bottom: 1px solid #444;
-            padding-bottom: 5px;
         }
-        .review-content h3 {
-            color: #ff6f61;
-            margin: 25px 0 10px;
-        }
-        .review-content ul, .review-content ol {
+        .news-content ul, .news-content ol {
             margin-bottom: 20px;
             padding-left: 30px;
         }
-        .review-content li {
+        .news-content li {
             margin-bottom: 8px;
-        }
-        .rating {
-            background-color: #333;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 30px 0;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .rating-score {
-            font-size: 48px;
-            font-weight: bold;
-            color: #ff6f61;
-            min-width: 100px;
-            text-align: center;
-        }
-        .rating-criteria {
-            flex-grow: 1;
-        }
-        .criteria-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .criteria-name {
-            color: #ddd;
-        }
-        .criteria-value {
-            color: #ff6f61;
-            font-weight: bold;
-        }
-        .pros-cons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .pros, .cons {
-            padding: 15px;
-            border-radius: 8px;
-        }
-        .pros {
-            background-color: #1a3a1a;
-        }
-        .cons {
-            background-color: #3a1a1a;
-        }
-        .pros h3, .cons h3 {
-            margin-top: 0;
-            text-align: center;
         }
         .back-link {
             display: inline-block;
@@ -284,7 +224,6 @@
             width: 100%;
             color: #888;
         }
-        
     </style>
 </head>
 <body>
@@ -322,100 +261,67 @@
         </div>
     </header>
     <div class="container">
-        <article class="game-review">
-            <div class="review-header">
-                <h1>Обзор Counter-Strike 2</h1>
-                <div class="game-meta">
-                    <span>Жанр: Тактический шутер</span>
-                    <span>Разработчик: Valve</span>
-                    <span>Дата выхода: 27 сентября 2023</span>
+        <article class="news-article">
+            <div class="news-header">
+                <h1>Rust: Новый транспортный апдейт</h1>
+                <div class="news-meta">
+                    <span>5 марта 2024</span> | 
+                    <span>Автор: Максим Иванов</span> | 
+                    <span>Категория: Rust</span>
                 </div>
-                <img src="https://img.nvidiagrid.net/apps/100884811/ZZ/TV_BANNER_01_8b2e4223-92d0-4b95-93a7-ec44ed6c1a88.jpg" alt="Counter-Strike 2" class="game-cover">
+                <img src="https://files.facepunch.com/billb/1b2611b1/_qCIjdTQ.jpeg" alt="Rust транспортный апдейт" class="news-image">
             </div>
             
-            <div class="review-content">
-                <p>Counter-Strike 2 - это долгожданное обновление легендарной серии тактических шутеров от Valve. Построенная на новом движке Source 2, игра предлагает переработанные визуальные эффекты, улучшенную физику и множество качественных изменений геймплея.</p>
+            <div class="news-content">
+                <p>Facepunch Studios выпустили крупное обновление для Rust, которое полностью меняет систему транспорта в игре. Апдейт уже доступен на всех официальных серверах.</p>
                 
-                <h2>Геймплей</h2>
-                <p>Основной концепт CS остался прежним: две команды (террористы и контр-террористы) соревнуются в серии раундов, выполняя различные задачи. Однако механики были значительно доработаны:</p>
-                
-                <div class="pros-cons">
-                    <div class="pros">
-                        <h3>Достоинства</h3>
-                        <ul>
-                            <li>Обновленная система дыма с динамической физикой</li>
-                            <li>Улучшенная баллистика и траектории пуль</li>
-                            <li>Более четкая и чистая графика</li>
-                            <li>Оптимизированные серверные технологии</li>
-                        </ul>
-                    </div>
-                    <div class="cons">
-                        <h3>Недостатки</h3>
-                        <ul>
-                            <li>Некоторые классические карты пока недоступны</li>
-                            <li>Требовательность к системе выросла</li>
-                            <li>Периодические проблемы с античитом</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <h2>Основные изменения</h2>
-                <h3>1. Графика и визуальные эффекты</h3>
-                <p>Source 2 принес заметные улучшения в визуальную составляющую. Особенно выделяются:</p>
+                <h2>Новые транспортные средства</h2>
+                <p>В игре появились три новых вида транспорта:</p>
                 <ul>
-                    <li>Динамическое освещение и тени</li>
-                    <li>Переработанные текстуры оружия и персонажей</li>
-                    <li>Эффекты воды и отражений</li>
-                    <li>Улучшенные частицы взрывов и выстрелов</li>
+                    <li><strong>Модульный автомобиль</strong> - собирается из деталей, можно кастомизировать</li>
+                    <li><strong>Гидроцикл</strong> - быстрый водный транспорт для прибрежных зон</li>
+                    <li><strong>Грузовой вертолет</strong> - позволяет перевозить большие грузы между базами</li>
                 </ul>
                 
-                <h3>2. Физика дыма</h3>
-                <p>Одно из самых заметных нововведений - динамические дымовые гранаты:</p>
+                <h2>Изменения в механиках</h2>
+                <p>Обновление принесло значительные изменения в игровые механики:</p>
+                <ol>
+                    <li>Новая система топлива - разные виды транспорта используют разные типы топлива</li>
+                    <li>Система повреждений - транспорт теперь можно ремонтировать</li>
+                    <li>Улучшенная физика столкновений</li>
+                    <li>Возможность устанавливать оружие на технику</li>
+                </ol>
+                
+                <h2>Новые игровые элементы</h2>
+                <p>Вместе с транспортом добавлены:</p>
                 <ul>
-                    <li>Дым реагирует на освещение и окружение</li>
-                    <li>Можно временно рассеивать выстрелами или взрывами</li>
-                    <li>Заполняет пространство более реалистично</li>
-                    <li>Взаимодействует с другими игровыми объектами</li>
+                    <li>15 новых чертежей для создания деталей</li>
+                    <li>7 видов топлива разного качества</li>
+                    <li>Система гаражей для хранения техники</li>
+                    <li>Новые NPC - механики, у которых можно купить редкие детали</li>
                 </ul>
                 
-                <h3>3. Игровые режимы</h3>
-                <p>CS2 предлагает все классические режимы плюс несколько новых:</p>
+                <h2>Балансные изменения</h2>
+                <p>Разработчики внесли важные балансные правки:</p>
                 <ul>
-                    <li><strong>Competitive</strong> - основной соревновательный режим</li>
-                    <li><strong>Wingman</strong> - 2v2 на специальных картах</li>
-                    <li><strong>Deathmatch</strong> - для тренировки стрельбы</li>
-                    <li><strong>Casual</strong> - неранговые матчи</li>
+                    <li>Увеличена редкость некоторых компонентов для автомобилей</li>
+                    <li>Переработана система шума от транспорта</li>
+                    <li>Уменьшен урон от столкновений на низких скоростях</li>
+                    <li>Добавлена возможность угонять чужую технику при определенных условиях</li>
                 </ul>
                 
-                <h2>Оценка</h2>
-                <div class="rating">
-                    <div class="rating-score">9.2</div>
-                    <div class="rating-criteria">
-                        <div class="criteria-item">
-                            <span class="criteria-name">Графика</span>
-                            <span class="criteria-value">9/10</span>
-                        </div>
-                        <div class="criteria-item">
-                            <span class="criteria-name">Геймплей</span>
-                            <span class="criteria-value">10/10</span>
-                        </div>
-                        <div class="criteria-item">
-                            <span class="criteria-name">Оптимизация</span>
-                            <span class="criteria-value">8/10</span>
-                        </div>
-                        <div class="criteria-item">
-                            <span class="criteria-name">Контент</span>
-                            <span class="criteria-value">9/10</span>
-                        </div>
-                    </div>
-                </div>
+                <h2>Реакция сообщества</h2>
+                <p>Игроки уже оценили обновление:</p>
+                <ul>
+                    <li>Положительные отзывы на новые возможности для рейдов</li>
+                    <li>Критика сложности добычи топлива высокого качества</li>
+                    <li>Похвалы за реалистичную физику транспорта</li>
+                    <li>Пожелания добавить больше вариантов кастомизации</li>
+                </ul>
                 
-                <h2>Заключение</h2>
-                <p>Counter-Strike 2 - это не просто обновление графики, а серьезный шаг вперед для всей серии. Игра сохраняет все лучшие черты оригинала, добавляя современные технологии и улучшая ключевые механики. Несмотря на некоторые технические проблемы первых месяцев после релиза, CS2 уверенно занимает место лучшего тактического шутера на рынке.</p>
+                <p>Разработчики обещают в ближайших патчах исправить найденные баги и добавить еще несколько видов транспорта.</p>
                 
-                <p>Рекомендуем как ветеранам серии, так и новым игрокам, желающим погрузиться в конкурентную сцену киберспортивных шутеров.</p>
-                
-                <a href="kat.html" class="back-link">← Вернуться в каталог игр</a>
+                <a href="index.html" class="back-link">← Вернуться к списку новостей</a>
             </div>
         </article>
     </div>

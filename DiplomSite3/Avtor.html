@@ -12,11 +12,11 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-color: #1a1a1a; /* Темный фон */
-            color: #ffffff; /* Белый текст */
+            background-color: #1a1a1a;
+            color: #ffffff;
         }
         header {
-            background-color: #0d0d0d; /* Темный фон для шапки */
+            background-color: #0d0d0d;
             color: white;
             padding: 10px 20px;
             display: flex;
@@ -24,11 +24,12 @@
             align-items: center;
             width: 100%;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         header .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #ff6f61; /* Яркий акцентный цвет */
+            color: #ff6f61;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
         header .logo a {
@@ -38,10 +39,12 @@
         header .nav-center {
             display: flex;
             gap: 20px;
+            position: relative;
         }
-        header .nav-center  a {
+        header .nav-center a {
             text-decoration: none;
             color: #ffffff;
+            position: relative;
         }
         header .nav-right {
             display: flex;
@@ -57,11 +60,11 @@
             padding: 8px 16px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            background: linear-gradient(45deg, #333, #555); /* Темный градиент */
+            background: linear-gradient(45deg, #333, #555);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         header nav a:hover {
-            background: linear-gradient(45deg, #555, #777); /* Светлее при наведении */
+            background: linear-gradient(45deg, #555, #777);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
@@ -69,44 +72,78 @@
             padding: 8px 16px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            background: linear-gradient(45deg, #ff6f61, #ff3b2f); /* Яркий градиент */
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         header .nav-right a:hover {
-            background: linear-gradient(45deg, #ff3b2f, #ff6f61); /* Ярче при наведении */
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-bottom: 1px solid #444;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #444;
+            color: #ff6f61;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
         .auth-container {
             max-width: 400px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #262626; /* Темный фон для контейнера */
+            background-color: #262626;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             text-align: center;
         }
         .auth-container h2 {
             margin-bottom: 20px;
-            color: #ff6f61; /* Яркий акцентный цвет для заголовков */
+            color: #ff6f61;
         }
         .auth-container input {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #444; /* Темная граница */
+            border: 1px solid #444;
             border-radius: 4px;
             box-sizing: border-box;
-            background-color: #333; /* Темный фон для полей ввода */
-            color: #ffffff; /* Белый текст */
+            background-color: #333;
+            color: #ffffff;
         }
         .auth-container input::placeholder {
-            color: #888; /* Серый цвет для плейсхолдера */
+            color: #888;
         }
         .auth-container button {
             width: 100%;
             padding: 10px;
-            background: linear-gradient(45deg, #ff6f61, #ff3b2f); /* Яркий градиент */
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f);
             border: none;
             border-radius: 4px;
             color: white;
@@ -115,17 +152,17 @@
             transition: background 0.3s ease;
         }
         .auth-container button:hover {
-            background: linear-gradient(45deg, #ff3b2f, #ff6f61); /* Ярче при наведении */
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61);
         }
         .auth-container a {
             display: block;
             margin-top: 10px;
-            color: #ff6f61; /* Яркий акцентный цвет */
+            color: #ff6f61;
             text-decoration: none;
             transition: color 0.3s ease;
         }
         .auth-container a:hover {
-            color: #ff3b2f; /* Ярче при наведении */
+            color: #ff3b2f;
         }
     </style>
 </head>
@@ -133,8 +170,30 @@
     <header>
         <div class="logo"><a href="index.html">GameUP</a></div>
         <div class="nav-center">
-            <a href="#">Новости</a>
-            <a href="kat.html">Каталог игр</a>
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обновления</a>
+                <div class="dropdown-content">
+                    <a href="cs2-updates.html">Counter-Strike 2</a>
+                    <a href="rust-updates.html">Rust</a>
+                    <a href="dota2-updates.html">Dota 2</a>
+                    <a href="pubg-updates.html">PUBG</a>
+                    <a href="valorant-updates.html">Valorant</a>
+                    <a href="wot-updates.html">World of Tanks</a>
+                    <a href="fortnite-updates.html">Fortnite</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обзор</a>
+                <div class="dropdown-content">
+                    <a href="cs2-review.html">Counter-Strike 2</a>
+                    <a href="rust-review.html">Rust</a>
+                    <a href="dota2-review.html">Dota 2</a>
+                    <a href="pubg-review.html">PUBG</a>
+                    <a href="valorant-review.html">Valorant</a>
+                    <a href="wot-review.html">World of Tanks</a>
+                    <a href="fortnite-review.html">Fortnite</a>
+                </div>
+            </div>
         </div>
         <div class="nav-right">
             <a href="Avtor.html">Вход</a>

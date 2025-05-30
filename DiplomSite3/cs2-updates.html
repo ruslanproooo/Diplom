@@ -24,6 +24,7 @@
             align-items: center;
             width: 100%;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         header .logo {
             font-size: 24px;
@@ -38,10 +39,12 @@
         header .nav-center {
             display: flex;
             gap: 20px;
+            position: relative;
         }
         header .nav-center a {
             text-decoration: none;
             color: #ffffff;
+            position: relative;
         }
         header .nav-right {
             display: flex;
@@ -76,6 +79,40 @@
             background: linear-gradient(45deg, #ff3b2f, #ff6f61);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-bottom: 1px solid #444;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #444;
+            color: #ff6f61;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
         .container {
             max-width: 1200px;
@@ -289,8 +326,30 @@
     <header>
         <div class="logo"><a href="index.html">GameUP</a></div>
         <div class="nav-center">
-            <a href="#">Новости</a>
-            <a href="kat.html">Каталог игр</a>
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обновления</a>
+                <div class="dropdown-content">
+                    <a href="cs2-updates.html">Counter-Strike 2</a>
+                    <a href="rust-updates.html">Rust</a>
+                    <a href="dota2-updates.html">Dota 2</a>
+                    <a href="pubg-updates.html">PUBG</a>
+                    <a href="valorant-updates.html">Valorant</a>
+                    <a href="wot-updates.html">World of Tanks</a>
+                    <a href="fortnite-updates.html">Fortnite</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обзор</a>
+                <div class="dropdown-content">
+                    <a href="cs2-review.html">Counter-Strike 2</a>
+                    <a href="rust-review.html">Rust</a>
+                    <a href="dota2-review.html">Dota 2</a>
+                    <a href="pubg-review.html">PUBG</a>
+                    <a href="valorant-review.html">Valorant</a>
+                    <a href="wot-review.html">World of Tanks</a>
+                    <a href="fortnite-review.html">Fortnite</a>
+                </div>
+            </div>
         </div>
         <div class="nav-right">
             <a href="Avtor.html">Вход</a>
@@ -302,12 +361,55 @@
         
         <div class="page-header">
             <h1>Последние обновления Counter-Strike 2</h1>
-            <p>Все самые свежие изменения и нововведения в игре</p>
+            <p>Последние 5 обновлений игры с подробным описанием изменений</p>
         </div>
 
         <div class="updates-list">
-            <!-- Обновление 1 -->
+            <!-- Обновление 1 (самое новое) -->
             <div class="update-preview" onclick="showUpdateDetail('update1')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Обновление "Операция Гидроудар"</h2>
+                    <span class="update-preview-date">20 мая 2024</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Новая операция с уникальными заданиями, картами и скинами. Добавлена водная механика на картах.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Новая операция">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Водная механика">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update1" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Обновление "Операция Гидроудар"</h2>
+                    <span class="update-detail-date">20 мая 2024</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Крупнейшее обновление 2024 года, представляющее новую операцию с уникальными механиками и контентом.</p>
+                    <p>Основные изменения включают новую водную механику, которая влияет на передвижение и баллистику, а также 5 новых карт, специально разработанных для этой операции.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Новая операция">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Водная механика">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Новые скины">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Основные изменения:</h3>
+                    <ul>
+                        <li>Новая операция с 50+ заданиями и наградами</li>
+                        <li>5 новых карт с водной механикой</li>
+                        <li>15 новых скинов оружия в стиле операции</li>
+                        <li>Улучшенная физика воды и взаимодействие с ней</li>
+                        <li>Новые звуки окружающей среды для водных карт</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update1'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 2 -->
+            <div class="update-preview" onclick="showUpdateDetail('update2')">
                 <div class="update-preview-header">
                     <h2 class="update-preview-title">Обновление "Точный удар"</h2>
                     <span class="update-preview-date">15 апреля 2024</span>
@@ -317,40 +419,40 @@
                 </div>
                 <div class="update-preview-images">
                     <img src="https://image-proxy.bo3.gg/uploads/news/55370/title_image/webp-3327cfe4accd5e00bfe53f13b9872e00.webp.webp" alt="Новое оружие в CS2">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Изменения карт">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Изменения карт">
                 </div>
                 <a class="read-more-btn">Подробнее →</a>
             </div>
 
-            <div id="update1" class="update-detail">
+            <div id="update2" class="update-detail">
                 <div class="update-detail-header">
                     <h2 class="update-detail-title">Обновление "Точный удар"</h2>
                     <span class="update-detail-date">15 апреля 2024</span>
                 </div>
                 <div class="update-detail-content">
-                    <p>Это крупнейшее обновление за последние полгода, полностью перерабатывающее систему боя в CS2. Разработчики сосредоточились на улучшении игрового баланса и реалистичности стрельбы.</p>
-                    <p>Основные цели обновления - сделать геймплей более предсказуемым для опытных игроков, сохранив при этом доступность для новичков. Была полностью переработана система отдачи для всех типов оружия.</p>
+                    <p>Это крупнейшее обновление за последние полгода, полностью перерабатывающее систему боя в CS2.</p>
+                    <p>Основные цели обновления - сделать геймплей более предсказуемым для опытных игроков, сохранив при этом доступность для новичков.</p>
                 </div>
                 <div class="update-detail-images">
                     <img src="https://image-proxy.bo3.gg/uploads/news/55370/title_image/webp-3327cfe4accd5e00bfe53f13b9872e00.webp.webp" alt="Новое оружие в CS2">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Изменения карт">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Новые звуки">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Изменения карт">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Новые звуки">
                 </div>
                 <div class="update-detail-features">
                     <h3>Полный список изменений:</h3>
                     <ul>
-                        <li><strong>Пистолеты:</strong> Увеличен разброс при стрельбе в движении, уменьшен урон Glock-18 и USP-S</li>
-                        <li><strong>Штурмовые винтовки:</strong> Новая система отдачи для AK-47 и M4A4, улучшенная анимация перезарядки</li>
-                        <li><strong>Снайперские винтовки:</strong> Исправлены баги с попаданием через стены, изменена скорость передвижения с AWP</li>
-                        <li><strong>Дробовики:</strong> Увеличен урон на близких дистанциях, уменьшена эффективность на средних</li>
-                        <li><strong>Общие изменения:</strong> Новая физика пуль, улучшенные звуки выстрелов, оптимизация сетевого кода</li>
+                        <li>Полный ребаланс всех типов оружия</li>
+                        <li>Новая система отдачи и разброса</li>
+                        <li>Улучшенная анимация перезарядки</li>
+                        <li>Исправлены баги с попаданием через стены</li>
+                        <li>Новая физика пуль и звуки выстрелов</li>
                     </ul>
                 </div>
-                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update1'); return false;">← Назад к списку</a>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update2'); return false;">← Назад к списку</a>
             </div>
 
-            <!-- Обновление 2 -->
-            <div class="update-preview" onclick="showUpdateDetail('update2')">
+            <!-- Обновление 3 -->
+            <div class="update-preview" onclick="showUpdateDetail('update3')">
                 <div class="update-preview-header">
                     <h2 class="update-preview-title">Карты нового сезона</h2>
                     <span class="update-preview-date">3 апреля 2024</span>
@@ -359,42 +461,123 @@
                     <p>Добавлены 3 новые карты в соревновательный режим и переработаны 2 классические карты.</p>
                 </div>
                 <div class="update-preview-images">
-                    <img src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Новая карта Anubis">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Обновленная Dust2">
+                    <img src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Новая карта Anubis">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Обновленная Dust2">
                 </div>
                 <a class="read-more-btn">Подробнее →</a>
             </div>
 
-            <div id="update2" class="update-detail">
+            <div id="update3" class="update-detail">
                 <div class="update-detail-header">
                     <h2 class="update-detail-title">Карты нового сезона</h2>
                     <span class="update-detail-date">3 апреля 2024</span>
                 </div>
                 <div class="update-detail-content">
-                    <p>Это обновление приносит значительные изменения в картографический пул CS2. Разработчики представили как совершенно новые локации, так и обновленные версии классических карт.</p>
+                    <p>Это обновление приносит значительные изменения в картографический пул CS2.</p>
                     <p>Особое внимание было уделено балансу и визуальному оформлению. Все карты теперь используют возможности движка Source 2 в полной мере.</p>
                 </div>
                 <div class="update-detail-images">
-                    <img src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Новая карта Anubis">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Обновленная Dust2">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1a1.jpg" alt="Новая карта Breach">
+                    <img src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Новая карта Anubis">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Обновленная Dust2">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Новая карта Breach">
                 </div>
                 <div class="update-detail-features">
                     <h3>Новые и обновленные карты:</h3>
                     <ul>
-                        <li><strong>Anubis:</strong> Полностью новая карта в египетском стиле с уникальной механикой песчаных бурь</li>
-                        <li><strong>Vertigo:</strong> Полный редизайн с улучшенной навигацией и новыми путями перемещения</li>
-                        <li><strong>Breach:</strong> Индустриальная карта с разрушаемыми элементами окружения</li>
-                        <li><strong>Dust2:</strong> Визуальное обновление с сохранением классического геймплея</li>
-                        <li><strong>Inferno:</strong> Улучшенное освещение и текстуры, оптимизация производительности</li>
+                        <li>Anubis: Полностью новая карта в египетском стиле</li>
+                        <li>Vertigo: Полный редизайн с улучшенной навигацией</li>
+                        <li>Breach: Индустриальная карта с разрушаемыми элементами</li>
+                        <li>Dust2: Визуальное обновление классики</li>
+                        <li>Inferno: Улучшенное освещение и текстуры</li>
                     </ul>
                 </div>
-                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update2'); return false;">← Назад к списку</a>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update3'); return false;">← Назад к списку</a>
             </div>
 
-            <!-- Остальные обновления 3-5 -->
-            <!-- ... аналогичная структура для остальных обновлений ... -->
-            
+            <!-- Обновление 4 -->
+            <div class="update-preview" onclick="showUpdateDetail('update4')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Античит и стабильность</h2>
+                    <span class="update-preview-date">22 марта 2024</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Улучшения системы античита и исправление ошибок, влияющих на стабильность игры.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Античит">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Стабильность">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update4" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Античит и стабильность</h2>
+                    <span class="update-detail-date">22 марта 2024</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Техническое обновление, направленное на улучшение безопасности и стабильности игры.</p>
+                    <p>Введены новые алгоритмы обнаружения читеров, а также исправлены многочисленные ошибки, вызывавшие вылеты игры.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Античит">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Стабильность">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Основные изменения:</h3>
+                    <ul>
+                        <li>Обновленный античит VAC с машинным обучением</li>
+                        <li>Исправлено 15+ критических ошибок</li>
+                        <li>Улучшена стабильность серверов</li>
+                        <li>Оптимизировано использование памяти</li>
+                        <li>Устранены лаги на слабых ПК</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update4'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 5 -->
+            <div class="update-preview" onclick="showUpdateDetail('update5')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Киберспортивный пакет</h2>
+                    <span class="update-preview-date">10 марта 2024</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Обновление для профессиональных игроков и турниров с новыми инструментами для зрителей.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Киберспорт">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Турниры">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update5" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Киберспортивный пакет</h2>
+                    <span class="update-detail-date">10 марта 2024</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Специальное обновление, направленное на улучшение киберспортивной составляющей CS2.</p>
+                    <p>Добавлены новые инструменты для организаторов турниров и улучшен режим наблюдателя.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Киберспорт">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Турниры">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/8c3c1a7c8b4b6c7e3c7d0b1a1a1a1a1a1a1.jpg" alt="Режим наблюдателя">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Новые возможности:</h3>
+                    <ul>
+                        <li>Улучшенный режим наблюдателя с новыми камерами</li>
+                        <li>Инструменты для анализа матчей в реальном времени</li>
+                        <li>Новые HUD-элементы для зрителей</li>
+                        <li>Поддержка 8К трансляций</li>
+                        <li>Турнирные пресеты для быстрой настройки</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update5'); return false;">← Назад к списку</a>
+            </div>
         </div>
     </div>
     <footer>
