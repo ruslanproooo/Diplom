@@ -1,0 +1,740 @@
+<?php
+require_once 'config/file_auth.php';
+$auth = new FileAuth();
+?>
+
+<!DOCTYPE php>
+<php lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameUP - Последние обновления Valorant</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        /* Стили для имени пользователя */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-name {
+    color: #ff6f61;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: linear-gradient(45deg, #333, #555);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-name:hover {
+    background: linear-gradient(45deg, #555, #777);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #333;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    top: 100%;
+}
+
+.user-dropdown a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.user-dropdown a:hover {
+    background-color: #444;
+    color: #ff6f61;
+}
+
+.user-menu:hover .user-dropdown {
+    display: block;
+}
+        header {
+            background-color: #0d0d0d;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+        }
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6f61;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        header .logo a {
+            text-decoration: none;
+            color: #ff6f61;
+        }
+        header .nav-center {
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+        header .nav-center a {
+            text-decoration: none;
+            color: #ffffff;
+            position: relative;
+        }
+        header .nav-right {
+            display: flex;
+            gap: 10px;
+        }
+        header .nav-right a {
+            text-decoration: none;
+            color: #000000;
+        }
+        header nav a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #333, #555);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header nav a:hover {
+            background: linear-gradient(45deg, #555, #777);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        header .nav-right a {
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header .nav-right a:hover {
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-bottom: 1px solid #444;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #444;
+            color: #ff6f61;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #262626;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            width: calc(100% - 40px);
+            border-radius: 8px;
+            overflow-x: hidden;
+        }
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .page-header h1 {
+            color: #ff6f61;
+            font-size: 36px;
+        }
+        .updates-list {
+            display: grid;
+            gap: 25px;
+        }
+        .update-preview {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .update-preview:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .update-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .update-preview-title {
+            color: #ff6f61;
+            font-size: 22px;
+            margin: 0;
+        }
+        .update-preview-date {
+            color: #888;
+            font-size: 16px;
+        }
+        .update-preview-content {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .update-preview-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .update-preview-images img {
+            width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .read-more-btn {
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .update-detail {
+            display: none;
+            background-color: #333;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .update-detail.active {
+            display: block;
+        }
+        .update-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #444;
+        }
+        .update-detail-title {
+            color: #ff6f61;
+            font-size: 28px;
+            margin: 0;
+        }
+        .update-detail-date {
+            color: #888;
+            font-size: 18px;
+        }
+        .update-detail-content {
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        .update-detail-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .update-detail-images img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .update-detail-images img:hover {
+            transform: scale(1.03);
+        }
+        .update-detail-features {
+            margin-top: 30px;
+        }
+        .update-detail-features h3 {
+            color: #ff6f61;
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+        }
+        .update-detail-features ul {
+            padding-left: 25px;
+        }
+        .update-detail-features li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .back-to-list {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: #444;
+            transition: all 0.3s ease;
+        }
+        .back-to-list:hover {
+            background-color: #555;
+            text-decoration: none;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0d0d0d;
+            color: white;
+            flex-shrink: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        footer .footer-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        footer .column {
+            flex: 1;
+            margin: 0 10px;
+        }
+        footer .column h3 {
+            margin-top: 0;
+            color: #ff6f61;
+        }
+        footer .social-links a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            margin: 5px 0;
+            transition: color 0.3s ease;
+        }
+        footer .social-links a:hover {
+            color: #ff6f61;
+        }
+        footer .footer-line {
+            width: 100%;
+            border-top: 1px solid #444;
+            margin: 20px 0;
+        }
+        footer .copyright {
+            text-align: center;
+            width: 100%;
+            color: #888;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            header .nav-center {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            header .nav-right {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .container {
+                padding: 10px;
+                margin: 10px;
+                width: calc(100% - 20px);
+            }
+            
+            .update-preview-images {
+                grid-template-columns: 1fr;
+            }
+            
+            .update-detail-images {
+                grid-template-columns: 1fr;
+            }
+            
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="index.php">GameUP</a></div>
+        <div class="nav-center">
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обновления</a>
+                <div class="dropdown-content">
+                    <a href="cs2-updates.php">Counter-Strike 2</a>
+                    <a href="rust-updates.php">Rust</a>
+                    <a href="dota2-updates.php">Dota 2</a>
+                    <a href="pubg-updates.php">PUBG</a>
+                    <a href="valorant-updates.php">Valorant</a>
+                    <a href="wot-updates.php">World of Tanks</a>
+                    <a href="fortnite-updates.php">Fortnite</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обзор</a>
+                <div class="dropdown-content">
+                    <a href="cs2-review.php">Counter-Strike 2</a>
+                    <a href="rust-review.php">Rust</a>
+                    <a href="dota2-review.php">Dota 2</a>
+                    <a href="pubg-review.php">PUBG</a>
+                    <a href="valorant-review.php">Valorant</a>
+                    <a href="wot-review.php">World of Tanks</a>
+                    <a href="fortnite-review.php">Fortnite</a>
+                </div>
+            </div>
+        </div>
+        <div class="nav-right">
+    <?php if ($auth->isLoggedIn()): ?>
+        <?php $user = $auth->getUser(); ?>
+        <div class="user-menu">
+            <div class="user-name"><?php echo htmlspecialchars($user['username']); ?></div>
+            <div class="user-dropdown">
+                <a href="profile.php">Профиль</a>
+                <a href="logout.php">Выйти</a>
+            </div>
+        </div>
+    <?php else: ?>
+        <a href="Avtor.php">Вход</a>
+        <a href="Reg2.php">Регистрация</a>
+    <?php endif; ?>
+</div>
+    </header>
+    <div class="container">
+        <a href="index.php" class="back-link">← Назад к главной</a>
+        
+        <div class="page-header">
+            <h1>Последние обновления Valorant</h1>
+            <p>Последние 5 обновлений игры с подробным описанием изменений</p>
+        </div>
+
+        <div class="updates-list">
+            <!-- Обновление 1 (самое новое) -->
+            <div class="update-preview" onclick="showUpdateDetail('update1')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Обновление "Эпизод 7: Акт 3"</h2>
+                    <span class="update-preview-date">10 октября 2023</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Новый агент Iso, карта Sunset, изменения баланса и новые скины.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Новый агент Iso">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Карта Sunset">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update1" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Обновление "Эпизод 7: Акт 3"</h2>
+                    <span class="update-detail-date">10 октября 2023</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Крупное обновление, завершающее Эпизод 7, с новым агентом, картой и множеством изменений баланса.</p>
+                    <p>Основные изменения включают нового дуэлянта Iso, карту Sunset в Лос-Анджелесе и значительные изменения в метагейме.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Новый агент Iso">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Карта Sunset">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Новые скины">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Основные изменения:</h3>
+                    <ul>
+                        <li>Новый агент-дуэлянт Iso</li>
+                        <li>Новая карта Sunset (Лос-Анджелес)</li>
+                        <li>Изменения баланса для 5 агентов</li>
+                        <li>Новая коллекция скинов "Imperium"</li>
+                        <li>Изменения в системе рангов</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update1'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 2 -->
+            <div class="update-preview" onclick="showUpdateDetail('update2')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Обновление "Эпизод 7: Акт 2"</h2>
+                    <span class="update-preview-date">29 августа 2023</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Новый режим "Команда смерти", изменения баланса и улучшения качества жизни.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Режим Команда смерти">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Изменения баланса">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update2" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Обновление "Эпизод 7: Акт 2"</h2>
+                    <span class="update-detail-date">29 августа 2023</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Обновление приносит новый постоянный режим "Команда смерти" и множество улучшений качества жизни.</p>
+                    <p>Основные цели обновления - сделать геймплей более динамичным и исправить накопившиеся проблемы.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Режим Команда смерти">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Изменения баланса">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Улучшения интерфейса">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Полный список изменений:</h3>
+                    <ul>
+                        <li>Новый постоянный режим "Команда смерти"</li>
+                        <li>Изменения баланса для 7 агентов</li>
+                        <li>Обновленный интерфейс магазина</li>
+                        <li>Улучшенная система отчетов</li>
+                        <li>Новые ежедневные задания</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update2'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 3 -->
+            <div class="update-preview" onclick="showUpdateDetail('update3')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Обновление "Эпизод 7: Акт 1"</h2>
+                    <span class="update-preview-date">27 июня 2023</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Новый агент Deadlock, карта Breeze возвращается с изменениями, новый боевой пропуск.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Агент Deadlock">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Карта Breeze">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update3" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Обновление "Эпизод 7: Акт 1"</h2>
+                    <span class="update-detail-date">27 июня 2023</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Начало нового эпизода с новым агентом-стражем Deadlock и возвращением карты Breeze с изменениями.</p>
+                    <p>Особое внимание было уделено балансу и новым возможностям для стратегической игры.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Агент Deadlock">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Карта Breeze">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Новый боевой пропуск">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Новые и обновленные элементы:</h3>
+                    <ul>
+                        <li>Новый агент-страж Deadlock</li>
+                        <li>Обновленная карта Breeze</li>
+                        <li>Новый боевой пропуск с эксклюзивными наградами</li>
+                        <li>Изменения в экономике раундов</li>
+                        <li>Обновления системы ранжирования</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update3'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 4 -->
+            <div class="update-preview" onclick="showUpdateDetail('update4')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Обновление "Premier Mode"</h2>
+                    <span class="update-preview-date">2 мая 2023</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Новый соревновательный режим Premier с системой отбора и улучшенным античитом.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Режим Premier">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Античит Vanguard">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update4" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Обновление "Premier Mode"</h2>
+                    <span class="update-detail-date">2 мая 2023</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Техническое обновление, представляющее новый соревновательный режим Premier с системой отбора.</p>
+                    <p>Введены новые алгоритмы античита и улучшена система подбора игроков.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Режим Premier">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Античит Vanguard">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Основные изменения:</h3>
+                    <ul>
+                        <li>Новый режим Premier с системой отбора</li>
+                        <li>Обновленный античит Vanguard</li>
+                        <li>Улучшенная система подбора игроков</li>
+                        <li>Новые ранги и звания</li>
+                        <li>Оптимизация производительности</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update4'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 5 -->
+            <div class="update-preview" onclick="showUpdateDetail('update5')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Обновление "Лотос"</h2>
+                    <span class="update-preview-date">10 января 2023</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Новая карта Lotus, изменения баланса агентов и новое событие.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Карта Lotus">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Событие">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update5" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Обновление "Лотос"</h2>
+                    <span class="update-detail-date">10 января 2023</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Обновление добавляет новую карту Lotus в Индии и запускает новое событие.</p>
+                    <p>Значительные изменения баланса затронули несколько агентов и оружия.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Карта Lotus">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Событие">
+                    <img src="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt697d307666f35a5e/651f8a2753b9a239a6d5c1a5/0710_EP7-ACT3_Overview-Article_Header.jpg" alt="Новые скины">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Новые возможности:</h3>
+                    <ul>
+                        <li>Новая карта Lotus (Индия)</li>
+                        <li>Изменения баланса для 8 агентов</li>
+                        <li>Новое событие с эксклюзивными наградами</li>
+                        <li>Обновления интерфейса</li>
+                        <li>Новая коллекция скинов</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update5'); return false;">← Назад к списку</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="column">
+                <h3>Основные разделы</h3>
+                <div class="social-links">
+                    <a href="#">Обновления</a>
+                    <a href="#">Новости</a>
+                    <a href="#">Обзор</a>
+                </div>
+            </div>
+            <div class="column">
+                <h3>Наши социальные сети:</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-line"></div>
+        <div class="copyright">
+            <p>GameUP, 2024</p>
+        </div>
+    </footer>
+
+    <script>
+        function showUpdateDetail(id) {
+            // Скрываем все детали обновлений
+            document.querySelectorAll('.update-detail').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Показываем выбранное обновление
+            document.getElementById(id).classList.add('active');
+            
+            // Прокручиваем к выбранному обновлению
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function hideUpdateDetail(id) {
+            document.getElementById(id).classList.remove('active');
+            document.querySelector('.updates-list').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</php>

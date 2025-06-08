@@ -1,0 +1,748 @@
+<?php
+require_once 'config/file_auth.php';
+$auth = new FileAuth();
+?>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameUP - Последние обновления Dota 2</title>
+    <style>
+        * {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        /* Стили для имени пользователя */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-name {
+    color: #ff6f61;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: linear-gradient(45deg, #333, #555);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-name:hover {
+    background: linear-gradient(45deg, #555, #777);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #333;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    top: 100%;
+}
+
+.user-dropdown a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.user-dropdown a:hover {
+    background-color: #444;
+    color: #ff6f61;
+}
+
+.user-menu:hover .user-dropdown {
+    display: block;
+}
+        header {
+            background-color: #0d0d0d;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6f61;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        header .logo a {
+            text-decoration: none;
+            color: #ff6f61;
+        }
+        header .nav-center {
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+        header .nav-center a {
+            text-decoration: none;
+            color: #ffffff;
+            position: relative;
+        }
+        header .nav-right {
+            display: flex;
+            gap: 10px;
+        }
+        header .nav-right a {
+            text-decoration: none;
+            color: #000000;
+        }
+        header nav a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #333, #555);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header nav a:hover {
+            background: linear-gradient(45deg, #555, #777);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        header .nav-right a {
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header .nav-right a:hover {
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-bottom: 1px solid #444;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #444;
+            color: #ff6f61;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .container {
+            width: calc(100% - 40px);
+    max-width: 1200px;
+    box-sizing: border-box;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #262626;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            border-radius: 8px;
+        }
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .page-header h1 {
+            color: #ff6f61;
+            font-size: 36px;
+        }
+        .updates-list {
+            display: grid;
+            gap: 25px;
+        }
+        .update-preview {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .update-preview:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .update-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .update-preview-title {
+            color: #ff6f61;
+            font-size: 22px;
+            margin: 0;
+        }
+        .update-preview-date {
+            color: #888;
+            font-size: 16px;
+        }
+        .update-preview-content {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .update-preview-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .update-preview-images img {
+            width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .read-more-btn {
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .update-detail {
+            display: none;
+            background-color: #333;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .update-detail.active {
+            display: block;
+        }
+        .update-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #444;
+        }
+        .update-detail-title {
+            color: #ff6f61;
+            font-size: 28px;
+            margin: 0;
+        }
+        .update-detail-date {
+            color: #888;
+            font-size: 18px;
+        }
+        .update-detail-content {
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        .update-detail-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .update-detail-images img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .update-detail-images img:hover {
+            transform: scale(1.03);
+        }
+        .update-detail-features {
+            margin-top: 30px;
+        }
+        .update-detail-features h3 {
+            color: #ff6f61;
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+        }
+        .update-detail-features ul {
+            padding-left: 25px;
+        }
+        .update-detail-features li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .back-to-list {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: #444;
+            transition: all 0.3s ease;
+        }
+        .back-to-list:hover {
+            background-color: #555;
+            text-decoration: none;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0d0d0d;
+            color: white;
+            flex-shrink: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        footer .footer-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        footer .column {
+            flex: 1;
+            margin: 0 10px;
+        }
+        footer .column h3 {
+            margin-top: 0;
+            color: #ff6f61;
+        }
+        footer .social-links a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            margin: 5px 0;
+            transition: color 0.3s ease;
+        }
+        footer .social-links a:hover {
+            color: #ff6f61;
+        }
+        footer .footer-line {
+            width: 100%;
+            border-top: 1px solid #444;
+            margin: 20px 0;
+        }
+        footer .copyright {
+            text-align: center;
+            width: 100%;
+            color: #888;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+    
+    header .nav-center {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .container {
+        margin: 10px auto;
+        padding: 15px;
+        width: calc(100% - 20px);
+    }
+    
+    .page-header h1 {
+        font-size: clamp(24px, 5vw, 36px);
+    }
+    
+    .update-preview-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .update-preview-images {
+        grid-template-columns: 1fr;
+    }
+    
+    .update-detail-images {
+        grid-template-columns: 1fr;
+    }
+    
+    footer .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="index.php">GameUP</a></div>
+        <div class="nav-center">
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обновления</a>
+                <div class="dropdown-content">
+                    <a href="cs2-updates.php">Counter-Strike 2</a>
+                    <a href="rust-updates.php">Rust</a>
+                    <a href="dota2-updates.php">Dota 2</a>
+                    <a href="pubg-updates.php">PUBG</a>
+                    <a href="valorant-updates.php">Valorant</a>
+                    <a href="wot-updates.php">World of Tanks</a>
+                    <a href="fortnite-updates.php">Fortnite</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обзор</a>
+                <div class="dropdown-content">
+                    <a href="cs2-review.php">Counter-Strike 2</a>
+                    <a href="rust-review.php">Rust</a>
+                    <a href="dota2-review.php">Dota 2</a>
+                    <a href="pubg-review.php">PUBG</a>
+                    <a href="valorant-review.php">Valorant</a>
+                    <a href="wot-review.php">World of Tanks</a>
+                    <a href="fortnite-review.php">Fortnite</a>
+                </div>
+            </div>
+        </div>
+        <div class="nav-right">
+    <?php if ($auth->isLoggedIn()): ?>
+        <?php $user = $auth->getUser(); ?>
+        <div class="user-menu">
+            <div class="user-name"><?php echo htmlspecialchars($user['username']); ?></div>
+            <div class="user-dropdown">
+                <a href="profile.php">Профиль</a>
+                <a href="logout.php">Выйти</a>
+            </div>
+        </div>
+    <?php else: ?>
+        <a href="Avtor.php">Вход</a>
+        <a href="Reg2.php">Регистрация</a>
+    <?php endif; ?>
+</div>
+    </header>
+    <div class="container">
+        <a href="index.php" class="back-link">← Назад к главной</a>
+        
+        <div class="page-header">
+            <h1>Последние обновления Dota 2</h1>
+            <p>Последние 5 обновлений игры с подробным описанием изменений</p>
+        </div>
+
+        <div class="updates-list">
+            <!-- Обновление 1 (самое новое) -->
+            <div class="update-preview" onclick="showUpdateDetail('update1')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Обновление 7.36 "Героические способности"</h2>
+                    <span class="update-preview-date">23 мая 2024</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Крупное обновление, добавляющее новую систему героических способностей и перерабатывающее таланты.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://cybersport-img.cdnvideo.ru/images/og-jpg/plain/1a/1a545d66-ae5d-4df4-a854-65df91a3968a.png" alt="Новые способности">
+                    <img src="http://avatars.mds.yandex.net/get-vthumb/1804871/253b8652829750d9fe5084b6dd799c26/800x450" alt="Новые таланты">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update1" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Обновление 7.36 "Героические способности"</h2>
+                    <span class="update-detail-date">23 мая 2024</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Это обновление полностью меняет подход к кастомизации героев, добавляя систему героических способностей и перерабатывая таланты.</p>
+                    <p>Теперь каждый герой получает уникальные модификаторы способностей, которые можно выбирать в начале игры.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://cybersport-img.cdnvideo.ru/images/og-jpg/plain/1a/1a545d66-ae5d-4df4-a854-65df91a3968a.png" alt="Новые способности">
+                    <img src="http://avatars.mds.yandex.net/get-vthumb/1804871/253b8652829750d9fe5084b6dd799c26/800x450" alt="Новые таланты">
+                    <img src="https://images.cybersport.ru/images/as-is/plain/0e/0e755f48-afa8-4c2e-b2b7-08a36ee778e9.png" alt="Новый интерфейс">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Основные изменения:</h3>
+                    <ul>
+                        <li>Новая система героических способностей для всех героев</li>
+                        <li>Полный редизайн системы талантов</li>
+                        <li>40+ новых предметов и рецептов</li>
+                        <li>Балансные изменения для 80% героев</li>
+                        <li>Новый интерфейс выбора способностей</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update1'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 2 -->
+            <div class="update-preview" onclick="showUpdateDetail('update2')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Кампания "Корона Рыка"</h2>
+                    <span class="update-preview-date">12 апреля 2024</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Новая PvE кампания с уникальными испытаниями и наградами. Добавлен новый герой - Рыкач.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/siltbreaker/siltbreaker_header.jpg" alt="Новая кампания">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heroes/dawnbreaker_vert.jpg" alt="Новый герой">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update2" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Кампания "Корона Рыка"</h2>
+                    <span class="update-detail-date">12 апреля 2024</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Масштабная PvE кампания, продолжающая традиции Siltbreaker и Aghanim's Labyrinth.</p>
+                    <p>Игроки могут пройти серию испытаний в новом подземелье, сражаясь с боссами и получая уникальные награды.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/siltbreaker/siltbreaker_header.jpg" alt="Новая кампания">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heroes/dawnbreaker_vert.jpg" alt="Новый герой">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/spring_cleaning_boss.jpg" alt="Новые боссы">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Новый контент:</h3>
+                    <ul>
+                        <li>Новый герой - Рыкач (Strength, Melee)</li>
+                        <li>15+ часов PvE контента с 3 уровнями сложности</li>
+                        <li>5 уникальных боссов с особыми механиками</li>
+                        <li>Система прокачки внутри кампании</li>
+                        <li>Уникальные скины и награды за прохождение</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update2'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 3 -->
+            <div class="update-preview" onclick="showUpdateDetail('update3')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Обновление клиента Dota 2</h2>
+                    <span class="update-preview-date">28 марта 2024</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Техническое обновление с улучшением производительности и новым интерфейсом.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/new_ui_header.jpg" alt="Новый интерфейс">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/new_ui_profile.jpg" alt="Профиль игрока">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update3" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Обновление клиента Dota 2</h2>
+                    <span class="update-detail-date">28 марта 2024</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Это обновление фокусируется на улучшении пользовательского опыта и производительности игры.</p>
+                    <p>Полностью переработан интерфейс, добавлены новые социальные функции и улучшена стабильность.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/new_ui_header.jpg" alt="Новый интерфейс">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/new_ui_profile.jpg" alt="Профиль игрока">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/new_ui_heroes.jpg" alt="Выбор героев">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Основные изменения:</h3>
+                    <ul>
+                        <li>Полностью новый интерфейс главного меню</li>
+                        <li>Улучшенная система друзей и чата</li>
+                        <li>Новый профиль игрока с расширенной статистикой</li>
+                        <li>Оптимизация загрузки текстур и моделей</li>
+                        <li>Уменьшение потребления памяти на 30%</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update3'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 4 -->
+            <div class="update-preview" onclick="showUpdateDetail('update4')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Балансный патч 7.35d</h2>
+                    <span class="update-preview-date">15 марта 2024</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Крупные балансные изменения перед началом нового сезона DPC.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/balance_changes.jpg" alt="Балансные изменения">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/dpc_logo.jpg" alt="DPC сезон">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update4" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Балансный патч 7.35d</h2>
+                    <span class="update-detail-date">15 марта 2024</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Этот патч приносит значительные изменения в мету перед началом нового сезона DPC.</p>
+                    <p>Основное внимание уделено балансу между героями и исправлению проблемных стратегий.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/balance_changes.jpg" alt="Балансные изменения">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/dpc_logo.jpg" alt="DPC сезон">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Ключевые изменения:</h3>
+                    <ul>
+                        <li>Изменения для 60+ героев</li>
+                        <li>Ребаланс 20+ предметов</li>
+                        <li>Новые механики нейтральных крипов</li>
+                        <li>Изменения в системе золота и опыта</li>
+                        <li>Исправления багов и улучшения стабильности</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update4'); return false;">← Назад к списку</a>
+            </div>
+
+            <!-- Обновление 5 -->
+            <div class="update-preview" onclick="showUpdateDetail('update5')">
+                <div class="update-preview-header">
+                    <h2 class="update-preview-title">Киберспортивные улучшения</h2>
+                    <span class="update-preview-date">2 марта 2024</span>
+                </div>
+                <div class="update-preview-content">
+                    <p>Новые инструменты для турниров и улучшенный режим наблюдателя.</p>
+                </div>
+                <div class="update-preview-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/spectator_updates.jpg" alt="Режим наблюдателя">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/tournament_tools.jpg" alt="Инструменты турниров">
+                </div>
+                <a class="read-more-btn">Подробнее →</a>
+            </div>
+
+            <div id="update5" class="update-detail">
+                <div class="update-detail-header">
+                    <h2 class="update-detail-title">Киберспортивные улучшения</h2>
+                    <span class="update-detail-date">2 марта 2024</span>
+                </div>
+                <div class="update-detail-content">
+                    <p>Это обновление добавляет множество новых функций для киберспортивной сцены Dota 2.</p>
+                    <p>Улучшен режим наблюдателя, добавлены новые инструменты для организаторов турниров.</p>
+                </div>
+                <div class="update-detail-images">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/spectator_updates.jpg" alt="Режим наблюдателя">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/tournament_tools.jpg" alt="Инструменты турниров">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/blog/play/new_hud.jpg" alt="Новый HUD">
+                </div>
+                <div class="update-detail-features">
+                    <h3>Новые возможности:</h3>
+                    <ul>
+                        <li>Улучшенный режим наблюдателя с новыми камерами</li>
+                        <li>Инструменты для анализа матчей в реальном времени</li>
+                        <li>Новые HUD-элементы для зрителей</li>
+                        <li>Поддержка 8К трансляций</li>
+                        <li>Турнирные пресеты для быстрой настройки</li>
+                    </ul>
+                </div>
+                <a href="#" class="back-to-list" onclick="hideUpdateDetail('update5'); return false;">← Назад к списку</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="column">
+                <h3>Основные разделы</h3>
+                <div class="social-links">
+                    <a href="#">Обновления</a>
+                    <a href="#">Новости</a>
+                    <a href="#">Обзор</a>
+                </div>
+            </div>
+            <div class="column">
+                <h3>Наши социальные сети:</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-line"></div>
+        <div class="copyright">
+            <p>GameUP, 2024</p>
+        </div>
+    </footer>
+
+    <script>
+        function showUpdateDetail(id) {
+            // Скрываем все детали обновлений
+            document.querySelectorAll('.update-detail').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Показываем выбранное обновление
+            document.getElementById(id).classList.add('active');
+            
+            // Прокручиваем к выбранному обновлению
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function hideUpdateDetail(id) {
+            document.getElementById(id).classList.remove('active');
+            document.querySelector('.updates-list').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

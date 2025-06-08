@@ -1,0 +1,589 @@
+<?php
+require_once 'config/file_auth.php';
+$auth = new FileAuth();
+?>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameUP - Обзор Fortnite</title>
+    <style>
+        * {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        /* Стили для имени пользователя */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-name {
+    color: #ff6f61;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: linear-gradient(45deg, #333, #555);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-name:hover {
+    background: linear-gradient(45deg, #555, #777);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #333;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    top: 100%;
+}
+
+.user-dropdown a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.user-dropdown a:hover {
+    background-color: #444;
+    color: #ff6f61;
+}
+
+.user-menu:hover .user-dropdown {
+    display: block;
+}
+        header {
+            background-color: #0d0d0d;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6f61;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        header .logo a {
+            text-decoration: none;
+            color: #ff6f61;
+        }
+        header .nav-center {
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+        header .nav-center a {
+            text-decoration: none;
+            color: #ffffff;
+            position: relative;
+        }
+        header .nav-right {
+            display: flex;
+            gap: 10px;
+        }
+        header .nav-right a {
+            text-decoration: none;
+            color: #000000;
+        }
+        header nav a {
+            text-decoration: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #333, #555);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header nav a:hover {
+            background: linear-gradient(45deg, #555, #777);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        header .nav-right a {
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff6f61, #ff3b2f);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header .nav-right a:hover {
+            background: linear-gradient(45deg, #ff3b2f, #ff6f61);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-bottom: 1px solid #444;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #444;
+            color: #ff6f61;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .container {
+            width: calc(100% - 40px);
+    max-width: 900px;
+    box-sizing: border-box;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #262626;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            width: 100%;
+            border-radius: 8px;
+        }
+        .game-review {
+            margin-bottom: 40px;
+        }
+        .review-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .review-header h1 {
+            color: #ff6f61;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .game-meta {
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .game-cover {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .review-content {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .review-content p {
+            margin-bottom: 20px;
+        }
+        .review-content h2 {
+            color: #ff6f61;
+            margin: 30px 0 15px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+        .review-content h3 {
+            color: #ff6f61;
+            margin: 25px 0 10px;
+        }
+        .review-content ul, .review-content ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+        .review-content li {
+            margin-bottom: 8px;
+        }
+        .rating {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .rating-score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff6f61;
+            min-width: 100px;
+            text-align: center;
+        }
+        .rating-criteria {
+            flex-grow: 1;
+        }
+        .criteria-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .criteria-name {
+            color: #ddd;
+        }
+        .criteria-value {
+            color: #ff6f61;
+            font-weight: bold;
+        }
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .pros {
+            background-color: #1a3a1a;
+        }
+        .cons {
+            background-color: #3a1a1a;
+        }
+        .pros h3, .cons h3 {
+            margin-top: 0;
+            text-align: center;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover {
+            color: #ff3b2f;
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0d0d0d;
+            color: white;
+            flex-shrink: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        footer .footer-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        footer .column {
+            flex: 1;
+            margin: 0 10px;
+        }
+        footer .column h3 {
+            margin-top: 0;
+            color: #ff6f61;
+        }
+        footer .social-links a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            margin: 5px 0;
+            transition: color 0.3s ease;
+        }
+        footer .social-links a:hover {
+            color: #ff6f61;
+        }
+        footer .footer-line {
+            width: 100%;
+            border-top: 1px solid #444;
+            margin: 20px 0;
+        }
+        footer .copyright {
+            text-align: center;
+            width: 100%;
+            color: #888;
+        }
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+    
+    header .nav-center {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .container {
+        margin: 10px auto;
+        padding: 15px;
+        width: calc(100% - 20px);
+    }
+    
+    .review-header h1 {
+        font-size: clamp(24px, 5vw, 32px);
+    }
+    
+    .game-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .pros-cons {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .rating {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    footer .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="index.php">GameUP</a></div>
+        <div class="nav-center">
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обновления</a>
+                <div class="dropdown-content">
+                    <a href="cs2-updates.php">Counter-Strike 2</a>
+                    <a href="rust-updates.php">Rust</a>
+                    <a href="dota2-updates.php">Dota 2</a>
+                    <a href="pubg-updates.php">PUBG</a>
+                    <a href="valorant-updates.php">Valorant</a>
+                    <a href="wot-updates.php">World of Tanks</a>
+                    <a href="fortnite-updates.php">Fortnite</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="dropdown-btn">Обзор</a>
+                <div class="dropdown-content">
+                    <a href="cs2-review.php">Counter-Strike 2</a>
+                    <a href="rust-review.php">Rust</a>
+                    <a href="dota2-review.php">Dota 2</a>
+                    <a href="pubg-review.php">PUBG</a>
+                    <a href="valorant-review.php">Valorant</a>
+                    <a href="wot-review.php">World of Tanks</a>
+                    <a href="fortnite-review.php">Fortnite</a>
+                </div>
+            </div>
+        </div>
+        <div class="nav-right">
+    <?php if ($auth->isLoggedIn()): ?>
+        <?php $user = $auth->getUser(); ?>
+        <div class="user-menu">
+            <div class="user-name"><?php echo htmlspecialchars($user['username']); ?></div>
+            <div class="user-dropdown">
+                <a href="profile.php">Профиль</a>
+                <a href="logout.php">Выйти</a>
+            </div>
+        </div>
+    <?php else: ?>
+        <a href="Avtor.php">Вход</a>
+        <a href="Reg2.php">Регистрация</a>
+    <?php endif; ?>
+</div>
+    </header>
+    <div class="container">
+        <article class="game-review">
+            <div class="review-header">
+                <h1>Обзор Fortnite</h1>
+                <div class="game-meta">
+                    <span>Жанр: Королевская битва, Выживание</span>
+                    <span>Разработчик: Epic Games</span>
+                    <span>Дата выхода: 25 июля 2017</span>
+                </div>
+                <img src="https://avatars.mds.yandex.net/i?id=a8c53a577d0a1ee5d8037d6f4662f262_l-5232459-images-thumbs&n=13" alt="Fortnite" class="game-cover">
+            </div>
+            
+            <div class="review-content">
+                <p>Fortnite - это популярная игра в жанре королевской битвы с уникальной механикой строительства, разработанная Epic Games. Игра стала культурным феноменом, объединив миллионы игроков по всему миру.</p>
+                
+                <h2>Геймплей</h2>
+                <p>Fortnite предлагает динамичные сражения на огромной карте, где 100 игроков сражаются до последнего выжившего. Ключевые особенности:</p>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h3>Достоинства</h3>
+                        <ul>
+                            <li>Уникальная система строительства, добавляющая глубину геймплею</li>
+                            <li>Регулярные обновления и новые сезоны с свежим контентом</li>
+                            <li>Яркая, оптимизированная графика</li>
+                            <li>Кросс-платформенная игра</li>
+                            <li>Бесплатная модель с косметическими покупками</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h3>Недостатки</h3>
+                        <ul>
+                            <li>Высокая сложность для новичков из-за строительства</li>
+                            <li>Частые изменения меты могут разочаровать</li>
+                            <li>Много времени требуется для получения редких предметов</li>
+                            <li>Иногда слишком много визуальных эффектов в бою</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h2>Основные аспекты игры</h2>
+                <h3>1. Режимы игры</h3>
+                <p>Fortnite предлагает несколько основных режимов:</p>
+                <ul>
+                    <li><strong>Battle Royale</strong> - классическая королевская битва на 100 игроков</li>
+                    <li><strong>Zero Build</strong> - режим без строительства для любителей чистого шутера</li>
+                    <li><strong>Creative</strong> - инструменты для создания собственных карт и режимов</li>
+                    <li><strong>Save the World</strong> - PvE режим против зомби (отдельная покупка)</li>
+                </ul>
+                
+                <h3>2. Строительство</h3>
+                <p>Уникальная механика Fortnite:</p>
+                <ul>
+                    <li>Возведение стен, лестниц, полов и крыш из различных материалов</li>
+                    <li>Сбор ресурсов (дерево, камень, металл) по карте</li>
+                    <li>Стратегическое использование строительства в бою</li>
+                    <li>Разрушаемость окружающей среды</li>
+                </ul>
+                
+                <h3>3. Оружие и предметы</h3>
+                <p>Арсенал Fortnite постоянно обновляется:</p>
+                <ul>
+                    <li>Разнообразные винтовки, пистолеты, дробовики и снайперские винтовки</li>
+                    <li>Экзотическое и мифическое оружие с уникальными эффектами</li>
+                    <li>Гранаты, ловушки и лечебные предметы</li>
+                    <li>Сезонные предметы и механики</li>
+                </ul>
+                
+                <h3>4. Сезоны и события</h3>
+                <p>Fortnite известен своими масштабными событиями:</p>
+                <ul>
+                    <li>Регулярные сезоны с новой тематикой и сюжетом</li>
+                    <li>Коллаборации с популярными франшизами (Marvel, Star Wars и др.)</li>
+                    <li>Концерты и кинотеатры в игре</li>
+                    <li>Ограниченные по времени режимы и испытания</li>
+                </ul>
+                
+                <h2>Технические особенности</h2>
+                <p>Fortnite использует движок Unreal Engine и предлагает:</p>
+                <ul>
+                    <li>Кросс-платформенную игру между ПК, консолями и мобильными устройствами</li>
+                    <li>Поддержку 60 FPS на большинстве платформ</li>
+                    <li>Режим производительности для соревновательной игры</li>
+                    <li>Регулярные оптимизации и улучшения графики</li>
+                </ul>
+                
+                <h2>Оценка</h2>
+                <div class="rating">
+                    <div class="rating-score">8.8</div>
+                    <div class="rating-criteria">
+                        <div class="criteria-item">
+                            <span class="criteria-name">Геймплей</span>
+                            <span class="criteria-value">9/10</span>
+                        </div>
+                        <div class="criteria-item">
+                            <span class="criteria-name">Графика</span>
+                            <span class="criteria-value">8/10</span>
+                        </div>
+                        <div class="criteria-item">
+                            <span class="criteria-name">Оптимизация</span>
+                            <span class="criteria-value">9/10</span>
+                        </div>
+                        <div class="criteria-item">
+                            <span class="criteria-name">Контент</span>
+                            <span class="criteria-value">9/10</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>Заключение</h2>
+                <p>Fortnite - это уникальное явление в игровой индустрии, сочетающее элементы шутера, строительства и массовых культурных событий. Игра постоянно развивается, предлагая игрокам свежий контент и новые впечатления.</p>
+                
+                <p>Рекомендуется всем, кто ищет динамичный, постоянно обновляемый многопользовательский опыт с элементами стратегии и творчества.</p>
+                
+                <a href="index.php" class="back-link">← На главную</a>
+            </div>
+        </article>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="column">
+                <h3>Основные разделы</h3>
+                <div class="social-links">
+                    <a href="#">Обновления</a>
+                    <a href="#">Новости</a>
+                    <a href="#">Обзор</a>
+                </div>
+            </div>
+            <div class="column">
+                <h3>Наши социальные сети:</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-line"></div>
+        <div class="copyright">
+            <p>GameUP, 2024</p>
+        </div>
+    </footer>
+</body>
+</html>
